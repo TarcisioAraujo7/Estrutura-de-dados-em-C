@@ -15,4 +15,25 @@ int main()
     printf("\nInsira seu chute: ");
     scanf("%d", &chute);
     printf("Seu chute foi %d", chute);
+
+    int acertou = chute == numerosecreto;
+    if (acertou)
+    {
+        printf("Parabens! Voce acertou");
+    } else {
+
+        int maior = chute > numerosecreto;
+        if (maior)
+        {
+            printf("Seu chute foi maior do que o numero secreto.");
+        }
+
+        int menor = chute < numerosecreto;
+        if (menor)
+        {
+            printf("Seu chute foi menor do que o numero secreto");
+        }
+        
+    }
+    
 }
