@@ -17,29 +17,29 @@ int main()
     
         printf("\nInsira seu chute: ");
         scanf("%d", &chute);
-        printf("Seu chute foi %d\n", chute);
-
-        int acertou = chute == numerosecreto;
-
-        if (acertou)
+        if (chute < 0)
         {
+            printf("Numeros negativos não são aceitos\n")
+            i--;
+            continue;
+        }
+        
+        printf("Seu %do chute foi %d\n", i, chute);
+        
+        int acertou = chute == numerosecreto;
+        int maior = chute > numerosecreto;
+        int menor = chute < numerosecreto;
+
+        if (acertou) {
             printf("Parabens! Voce acertou");
-        } else {
+            break;
 
-            int maior = chute > numerosecreto;
-
-            if (maior)
-            {
+        } else if (maior){
                 printf("Seu chute foi maior do que o numero secreto.\n");
-            }
-
-            int menor = chute < numerosecreto;
-
-            if (menor)
-            {
-                printf("Seu chute foi menor do que o numero secreto\m");
+            } else{
+                printf("Seu chute foi menor do que o numero secreto\n");
             }
         
     }
-    }
 }
+
