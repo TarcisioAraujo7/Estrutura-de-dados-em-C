@@ -8,32 +8,38 @@ int main()
 
     int numerosecreto;
     numerosecreto = 26;
-    printf("O numero %d e secreto!", numerosecreto);
     // %d substitui um inteiro
 
     int chute;
-    printf("\nInsira seu chute: ");
-    scanf("%d", &chute);
-    printf("Seu chute foi %d", chute);
-
-    int acertou = chute == numerosecreto;
-    if (acertou)
+    
+    for (int i = 1; i <= 3; i++)
     {
-        printf("Parabens! Voce acertou");
-    } else {
+    
+        printf("\nInsira seu chute: ");
+        scanf("%d", &chute);
+        printf("Seu chute foi %d\n", chute);
 
-        int maior = chute > numerosecreto;
-        if (maior)
-        {
-            printf("Seu chute foi maior do que o numero secreto.");
-        }
+        int acertou = chute == numerosecreto;
 
-        int menor = chute < numerosecreto;
-        if (menor)
+        if (acertou)
         {
-            printf("Seu chute foi menor do que o numero secreto");
-        }
+            printf("Parabens! Voce acertou");
+        } else {
+
+            int maior = chute > numerosecreto;
+
+            if (maior)
+            {
+                printf("Seu chute foi maior do que o numero secreto.\n");
+            }
+
+            int menor = chute < numerosecreto;
+
+            if (menor)
+            {
+                printf("Seu chute foi menor do que o numero secreto\m");
+            }
         
     }
-    
+    }
 }
