@@ -33,28 +33,32 @@ int main(){
       Auxiliar= Auxiliar->Prox;} 
 
     printf("\n\n Qual palavra deseja inserir? ");
-    scanf(" %s",P);    
+    scanf(" %s",P);                               // 4
     Auxiliar=(TIPO *) malloc(sizeof(TIPO));
 
     strcpy(Auxiliar->Palavra,P);
-    Auxiliar->Prox = NULL;
+    Auxiliar->Prox = NULL;                        // 5
 
 
     if (Inicio == NULL){ //primeiro elemento da estrutura
       Auxiliar->Prox=NULL;
-      Inicio = Auxiliar;
+      Inicio = Auxiliar;                          // 6
       Fim = Auxiliar;}
     else
+
       if (strcmp(P,Inicio->Palavra)<=0){ //insere no inicio
-		Auxiliar->Prox = Inicio;
-		Inicio = Auxiliar;}
+		Auxiliar->Prox = Inicio;                      // 7
+		Inicio = Auxiliar;}                             
+    
 	  else
 	    if (strcmp(P,Fim->Palavra)>=0){ //insere no fim
-		  Fim->Prox = Auxiliar;
+		  Fim->Prox = Auxiliar;                       // 8
 		  Fim = Auxiliar;}
+
 		else{ //insere no meio - antes do primeiro maior
 		  Atual = Inicio->Prox;
 		  Anterior = Inicio;
+
 		  while (strcmp(Atual->Palavra,Auxiliar->Palavra)<0){
 		    Anterior = Atual;
 		    Atual = Atual->Prox;}
