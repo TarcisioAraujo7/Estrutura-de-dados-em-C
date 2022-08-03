@@ -30,7 +30,7 @@ int main(){
 
     while (Auxiliar!=NULL){
       printf(" %s ",Auxiliar->Palavra);           // 3
-      Auxiliar= Auxiliar->Prox;} 
+      Auxiliar= Auxiliar->Prox;}                  // testar sem esse while dps
 
     printf("\n\n Qual palavra deseja inserir? ");
     scanf(" %s",P);                               // 4
@@ -46,22 +46,22 @@ int main(){
       Fim = Auxiliar;}
     else
 
-      if (strcmp(P,Inicio->Palavra)<=0){ //insere no inicio
+      if (strcmp(P,Inicio->Palavra)<=0){          // se a palavra inserida for menor ou igual a inicio -> palavra entra
 		Auxiliar->Prox = Inicio;                      // 7
 		Inicio = Auxiliar;}                             
     
 	  else
-	    if (strcmp(P,Fim->Palavra)>=0){ //insere no fim
+	    if (strcmp(P,Fim->Palavra)>=0){             // se a palavra inserida for maior ou igual a fim -> palavra entra
 		  Fim->Prox = Auxiliar;                       // 8
 		  Fim = Auxiliar;}
 
-		else{ //insere no meio - antes do primeiro maior
+		else{                                          // insere no meio - antes do primeiro maior
 		  Atual = Inicio->Prox;
 		  Anterior = Inicio;
 
 		  while (strcmp(Atual->Palavra,Auxiliar->Palavra)<0){
 		    Anterior = Atual;
-		    Atual = Atual->Prox;}
+		    Atual = Atual->Prox;}                      // parei aqui ó
 		  Anterior->Prox = Auxiliar;
 		  Auxiliar->Prox = Atual;}
 
