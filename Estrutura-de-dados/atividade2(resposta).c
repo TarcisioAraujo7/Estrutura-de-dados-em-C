@@ -13,7 +13,7 @@ int main(){
   
   typedef struct tipo TIPO;
   
-  TIPO *Inicio, *Fim, *Auxiliar, *Atual, *Anterior;
+  TIPO *Inicio, *Fim, *Auxiliar, *Atual, *Anterior, *Proximo, *Novo;  //Foram adicionados dois novos ponteiros
   char P[20],R='S';
 
   Inicio=NULL;
