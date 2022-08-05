@@ -34,6 +34,7 @@ int main(){
     printf("\n Entrada atual em ordem de entrada: ");
 
     Ajuda = Corpo;
+
     while (Ajuda!=NULL){
       printf(" %s ",Ajuda->Palavra);
       Ajuda= Ajuda->Prox; }
@@ -49,12 +50,12 @@ int main(){
     strcpy(Ajuda->Palavra,P);
     Ajuda->Prox = NULL;                       
 
-    if (Corpo == NULL)
+    if (Corpo == NULL)      //Primeiro elemento
     {
       Ajuda->Prox = NULL;
       Corpo = Ajuda;
       Cabeca = Ajuda;
-    } else{
+    } else{                 //Outros elementos
       Cabeca->Prox = Ajuda;
       Cabeca = Ajuda;
     }
@@ -66,30 +67,26 @@ int main(){
       Fim = Auxiliar;
 
       }
-
-    else
-
-      if (strcmp(P,Inicio->Palavra)<=0){          
+    else if (strcmp(P,Inicio->Palavra)<=0)
+    {          
 		Auxiliar->Prox = Inicio;                      
 		Inicio = Auxiliar;
-
-    ;}                             
-    
-	  else
-	    if (strcmp(P,Fim->Palavra)>=0){             
+    } 
+    else if (strcmp(P,Fim->Palavra)>=0)
+    {             
 		  Fim->Prox = Auxiliar;                       
 		  Fim = Auxiliar;
-     }
-
-		else{                                          
+    } 
+    else{                                          
 		  Atual = Inicio->Prox;
 		  Anterior = Inicio;
-      ;
+      
 		  while (strcmp(Atual->Palavra,Auxiliar->Palavra)<0){
 		    Anterior = Atual;
 		    Atual = Atual->Prox;}                   
 		  Anterior->Prox = Auxiliar;
-		  Auxiliar->Prox = Atual;}
+		  Auxiliar->Prox = Atual;
+      }
 
 
     system("cls");
@@ -117,3 +114,5 @@ int main(){
 
    return 0;
 }
+
+//Tarcisio Almeida 
