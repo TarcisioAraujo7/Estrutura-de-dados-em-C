@@ -24,7 +24,19 @@ void Incluir() {
     system("cls");
     printf("*** inclusao ***\n\n");
     printf("Nome: ");
-    scanf("%s",RgFarma.Nome);
+    char Farmaco[20];
+    scanf("%s",Farmaco);
+    if (encontrar(Farmaco))
+    {
+      printf("TEM");
+    } 
+    else
+    {
+      printf("TEM NAO");
+    }
+    
+
+    RgFarma.Nome = Farmaco;
     printf("Preco: ");
     scanf("%f",&RgFarma.Preco);
     printf("Estoque: ");
@@ -38,14 +50,40 @@ void Incluir() {
   while (R!='N');
   return;}
 
+
+long int Encontrar(char Nome[20]){
+  if (TArquivo()!=0){
+
+    ArqFarma=fopen("Famacos.dat","r+b");
+    int Achou=0;
+    do {
+      fread(&RgFarma,Tamanho,1,ArqFarma);
+      if (strcmp(RgFarma.Nome,Nome)==0){
+        Achou=1;
+        return 1;	}
+      }
+      while (!feof(ArqFarma)&&(Achou==0));
+    if(!Achou){
+      return 0;
+    }
+  } else
+  {
+    return 0;
+  }
+  
+}
+
 long int TArquivo(){
 	fseek(ArqFarma,0,2);
 	long int R=ftell(ArqFarma)/Tamanho;
 	return R;}
 
+  // Quando o estoque for negativo, esta excluido.
+
 void Excluir(){
   if (TArquivo() != 0)
   {
+    
     fclose(ArqFarma);
   ArqFarma=fopen("Famacos.dat","r+b");
   system("cls");
