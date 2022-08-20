@@ -17,6 +17,11 @@ FILE *ArqFarma;
 
 long int Tamanho=20*sizeof(char)+sizeof(float)+sizeof(int);
 
+long int TArquivo(){
+	fseek(ArqFarma,0,2);
+	long int R=ftell(ArqFarma)/Tamanho;
+	return R;}
+
 void Incluir() {
 
   char R;
@@ -24,25 +29,46 @@ void Incluir() {
     system("cls");
     printf("*** inclusao ***\n\n");
     printf("Nome: ");
-    char Farmaco[20];
-    scanf("%s",Farmaco);
-    if (encontrar(Farmaco))
+    char nomeInserido[20];
+    scanf("%s", &nomeInserido);
+
+    if (TArquivo() != 0)
     {
-      printf("TEM");
-    } 
-    else
+      fclose(ArqFarma);
+      ArqFarma=fopen("Famacos.dat","r+b");
+      fseek(ArqFarma,0,0);
+      int Existe = 0;
+      do {
+      fread(&RgFarma,Tamanho,1,ArqFarma);
+      if (strcmp(RgFarma.Nome,nomeInserido)==0 && RgFarma.QEstoque >= 0){
+        printf("Farmaco ja existe no sistema!");
+        Existe = 1;
+        }
+        }
+        while (!feof(ArqFarma)&&(Existe==0));
+      if (Existe == 0 )
+      {
+        strcpy(RgFarma.Nome, nomeInserido);
+        printf("Preco: ");
+        scanf("%f",&RgFarma.Preco);
+        printf("Estoque: ");
+        scanf("%d",&RgFarma.QEstoque);
+        fseek(ArqFarma,0,2);
+        fwrite(&RgFarma,Tamanho,1,ArqFarma);
+      }
+      
+
+    } else
     {
-      printf("TEM NAO");
+      strcpy(RgFarma.Nome, nomeInserido);
+      printf("Preco: ");
+      scanf("%f",&RgFarma.Preco);
+      printf("Estoque: ");
+      scanf("%d",&RgFarma.QEstoque);
+      fseek(ArqFarma,0,2);
+      fwrite(&RgFarma,Tamanho,1,ArqFarma);
     }
     
-
-    RgFarma.Nome = Farmaco;
-    printf("Preco: ");
-    scanf("%f",&RgFarma.Preco);
-    printf("Estoque: ");
-    scanf("%d",&RgFarma.QEstoque);
-    fseek(ArqFarma,0,2);
-    fwrite(&RgFarma,Tamanho,1,ArqFarma);
     printf("\nNova inclusao? S/N ");
     scanf(" %c",&R);
     R=toupper(R);
@@ -50,41 +76,13 @@ void Incluir() {
   while (R!='N');
   return;}
 
-
-long int Encontrar(char Nome[20]){
-  if (TArquivo()!=0){
-
-    ArqFarma=fopen("Famacos.dat","r+b");
-    int Achou=0;
-    do {
-      fread(&RgFarma,Tamanho,1,ArqFarma);
-      if (strcmp(RgFarma.Nome,Nome)==0){
-        Achou=1;
-        return 1;	}
-      }
-      while (!feof(ArqFarma)&&(Achou==0));
-    if(!Achou){
-      return 0;
-    }
-  } else
-  {
-    return 0;
-  }
-  
-}
-
-long int TArquivo(){
-	fseek(ArqFarma,0,2);
-	long int R=ftell(ArqFarma)/Tamanho;
-	return R;}
-
   // Quando o estoque for negativo, esta excluido.
 
 void Excluir(){
   if (TArquivo() != 0)
   {
     
-    fclose(ArqFarma);
+  fclose(ArqFarma);
   ArqFarma=fopen("Famacos.dat","r+b");
   system("cls");
   printf("*** deletar ***\n\n");  
