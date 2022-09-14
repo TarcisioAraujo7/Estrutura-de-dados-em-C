@@ -15,14 +15,13 @@ Str20 T;
 TpReg *Inicio, *Fim = NULL;
 TpReg *Aux;
 
-//Estrutura para lista de espera
-typedef struct Clientes{
-    Str20 Nome; //nome
+typedef struct RegCliente{
+    Str20 Nome; 
     void *Prox;
 }Cliente;
 
-Cliente *Ini, *Final = NULL;
-Cliente *Auxi;
+Cliente *InicioCliente, *FimCliente = NULL;
+Cliente *AuxCliente;
 
 Str20 N;
 
@@ -42,10 +41,10 @@ void EmFila(Str20 S){
     }
 }
 
-//Para incluir taxista.
+
 void Incluir(){
     char R;
-    if ((Ini != NULL)){
+    if ((InicioCliente != NULL)){
         system("cls");
         printf("*** Chegada de Taxista ***\n\n");
         printf("Taxista: ");
@@ -54,7 +53,7 @@ void Incluir(){
         
         EmFila(T);
         Remover(T);
-        RemoveCliente(Ini->Nome);
+        RemoverCliente(InicioCliente->Nome);
     }
     else{
         do{
@@ -63,7 +62,6 @@ void Incluir(){
             printf("Taxista: ");
             scanf("%[^\n]s", T);
             fflush(stdin);
-            //inclusao da taxista na fila
             EmFila(T);
 
             printf("\nOutro taxista? S/N ");
@@ -75,35 +73,35 @@ void Incluir(){
     return;
 }
 
-//Lista de espera dos clientes
+
+// LISTA DOS CLIENTES
 void ListaEspera(Str20 S){
-    Auxi = (Cliente *)malloc(sizeof(Cliente));
-    strcpy(Auxi->Nome, S);
-    Auxi->Prox = NULL;
-    if ((Ini == NULL) && (Final == NULL)){
-        Ini = Auxi;
-        Final = Auxi;
+    AuxCliente = (Cliente *)malloc(sizeof(Cliente));
+    strcpy(AuxCliente->Nome, S);
+    AuxCliente->Prox = NULL;
+    if ((InicioCliente == NULL) && (FimCliente == NULL)){
+        InicioCliente = AuxCliente;
+        FimCliente = AuxCliente;
     }
     else{
-        Final->Prox = Auxi;
-        Final = Auxi;
+        FimCliente->Prox = AuxCliente;
+        FimCliente = AuxCliente;
     }
 }
 
-//Inclui cliente na lista de espera
+// FUNÇÃO PARA INCLUIR CLIENTES
 void IncluiCliente(){
     system("cls");
-    printf("*** Cliente em Espera ***\n\n");
+    printf("*** Chegada de cliente ***\n\n");
     printf("Cliente: ");
     scanf("%[^\n]s", N);
     fflush(stdin);
 
-    //inclusao de cliente na lista de espera
     ListaEspera(N);
     return;
 }
 
-//Para atender chamada
+
 void Remover(Str20 Titulo){
     char R;
     if ((Inicio == NULL) && (Fim == NULL)){
@@ -132,17 +130,19 @@ void Remover(Str20 Titulo){
     return;
 }
 
-void RemoveCliente(Str20 N){
+// FUNÇÃO PARA REMOVER CLIENTES
+void RemoverCliente(Str20 N){
     char R;
     system("cls");
-    Auxi = Ini;
-    Ini = Ini->Prox;
-    free(Auxi);
-    if (Ini == NULL)
-        Final = NULL;
+    AuxCliente = InicioCliente;
+    InicioCliente = InicioCliente->Prox;
+    free(AuxCliente);
+    if (InicioCliente == NULL)
+        FimCliente = NULL;
     return;
 }
 
+// FUNÇÃO MODIFICADA PARA EXIBIR TAMBEM O TOTAL DOS CLIENTES EM ESPERA
 void LTodos(){
     system("cls");
     printf("***Fila de Taxistas***\n\n ");
@@ -154,8 +154,22 @@ void LTodos(){
         } while (Aux != NULL);
     }
     else
-        printf("\nLista de taxistas vazia. Pressione <ENTER>\n");
+        printf("\nLista de taxistas vazia.\n");
+
+    printf("\n***Clientes em espera***\n\n");
+
+    if (InicioCliente != NULL){
+        AuxCliente = InicioCliente;
+        do{
+            printf("%s\n", AuxCliente->Nome);
+            AuxCliente = AuxCliente->Prox;
+        } while (AuxCliente != NULL);
+    }
+    else
+        printf("\nLista de clientes vazia. Pressione ENTER.\n");
+
     system("pause");
+
     return;
 }
 
@@ -172,16 +186,16 @@ int main(){
             } while (Aux != NULL);
         }
         printf("\nClientes em espera: ");
-        if (Ini != NULL){
-            Auxi = Ini;
+        if (InicioCliente != NULL){
+            AuxCliente = InicioCliente;
             do{
-                printf("%s ", Auxi->Nome);
-                Auxi = Auxi->Prox;
-            } while (Auxi != NULL);
+                printf("%s ", AuxCliente->Nome);
+                AuxCliente = AuxCliente->Prox;
+            } while (AuxCliente != NULL);
         }
         printf("\n\nQue deseja fazer? \n\n");
         printf("1 - Chegada de Taxista \n");
-        printf("2 - Chamada de Cliente \n"); //taxista é removido da fila
+        printf("2 - Chegada de Cliente \n"); //taxista é removido da fila
         printf("3 - Listar Todos \n");
         printf("4 - Sair \n\n");
         printf("Opcao: ");
